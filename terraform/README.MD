@@ -1,31 +1,30 @@
 # Trident 3-Tier Terraform Architecture
 
-This section contains the Terraform configuration used to **automate the 3-tier infrastructure**.
+This section contains the Terraform configuration used to **automate the 3-tier infrastructure**. This terraform build is being updated and might differ from the [manual build](/manual_build/README.MD). 
 
 ## Overview
-
 Trident is a **modular 3-tier AWS architecture** built with Terraform.  
-It mirrors a production-ready cloud environment with:
+It mirrors a production-like cloud environment with:
 
 - **High Availability**: Multi-AZ design with resilient services  
 - **Auto Scaling**: Dynamic scaling policies based on CloudWatch metrics  
 - **Least Privilege**: IAM roles and scoped security groups  
 - **Infrastructure as Code**: Modular, reusable, and version-controlled  
 
-## Architecture Overview & Diagram
+## Architecture Diagram
 ![Trident-3-Tier-Architecture-Diagram](/diagram/trident-3-Tier-Diagram.png)
 
 ## Modules
 
 | Module             | Purpose                                    | Key Features                                                                 |
 |--------------------|--------------------------------------------|------------------------------------------------------------------------------|
-| **vpc_stack**      | Networking foundation                      | VPC, IGW, NAT, 6 subnets (2 public, 4 private), routing, outputs             |
+| **vpc**      | Networking foundation                      | VPC, IGW, NAT, 6 subnets (2 public, 4 private), routing, outputs             |
 | **security_groups**| Network segmentation                       | 5 SGs (Web ALB, Web EC2, App ALB, App EC2, RDS/Data); dynamic ingress rules  |
-| **iam_stack**      | IAM role + instance profile                | SSM Session Manager, CloudWatch policies; attached via launch templates      |
+| **iam**      | IAM role + instance profile                | SSM Session Manager, CloudWatch policies; attached via launch templates      |
 | **launch_template**| Compute templates                          | Web + App templates, Amazon Linux 2, encrypted gp3 EBS, user_data, monitoring|
-| **alb_stack**      | Load balancing                             | Web ALB (public) + App ALB (internal), target groups, listeners, health checks|
-| **asg_stack**      | Elastic scaling                            | 2 ASGs with CPU target tracking (70%), lifecycle aware, tagged for traceability|
-| **rds_stack**      | Database layer                             | Multi-AZ MySQL 8.0, subnet group, SG, encryption, backups enabled            |
+| **alb**      | Load balancing                             | Web ALB (public) + App ALB (internal), target groups, listeners, health checks|
+| **asg**      | Elastic scaling                            | 2 ASGs with CPU target tracking (70%), lifecycle aware, tagged for traceability|
+| **rds**      | Database layer                             | Multi-AZ MySQL 8.0, subnet group, SG, encryption, backups enabled            |
 
 ## Requirements
 - **Terraform**: [Install Guide](https://developer.hashicorp.com/terraform/install)  
@@ -62,5 +61,5 @@ terraform destroy -var-file="dev.tfvars"
 ```
 
 ## Manual Documentation
-- For detailed implementation notes, see: **[here](/manual_build/README.MD)**
+- For service-to-service implementation notes, see: **[here](/manual_build/README.MD)**
 
