@@ -1,4 +1,4 @@
-module "vpc" {
+module "main_vpc" {
   source               = "../../../modules/new_modules/vpc"
   vpc_name             = var.vpc_name
   cidr_block           = var.cidr_block

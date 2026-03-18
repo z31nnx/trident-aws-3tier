@@ -1,0 +1,35 @@
+variable "prefix" {
+  type = string
+}
+variable "sg_name" {
+  type = string
+}
+variable "vpc_id" {
+  type = string
+}
+variable "ingress" {
+  type = map(object({
+    description                  = optional(string)
+    cidr_ipv4                    = optional(string)
+    cidr_ipv6                    = optional(string)
+    from_port                    = optional(number)
+    to_port                      = optional(number)
+    ip_protocol                  = optional(string)
+    prefix_list_id               = optional(string)
+    referenced_security_group_id = optional(string)
+  }))
+  default = {}
+}
+variable "egress" {
+  type = map(object({
+    description                  = optional(string)
+    cidr_ipv4                    = optional(string)
+    cidr_ipv6                    = optional(string)
+    from_port                    = optional(number)
+    to_port                      = optional(number)
+    ip_protocol                  = optional(string)
+    prefix_list_id               = optional(string)
+    referenced_security_group_id = optional(string)
+  }))
+  default = {}
+}
