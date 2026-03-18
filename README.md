@@ -15,8 +15,8 @@ This project demonstrates the deployment of a modern 3-tier architecture using b
 ![Trident-3-Tier-Architecture-Diagram](/diagram/trident-3-Tier-Diagram.png) 
 
 # Builds
-- Manual build: **[Click Here](/manual_build/README.MD)**
-- Terraform build: **[Click Here](/terraform/README.MD)**
+- **Manual build:** **[Click Here](/manual_build/README.MD)**
+- **Terraform build:** **[Click Here](/terraform/README.MD)**
 
 # Key Features
 - VPC with Public & Private Subnets 
@@ -31,11 +31,11 @@ This project demonstrates the deployment of a modern 3-tier architecture using b
 ## Notes  
 - This project demonstrates both practical infrastructure understanding and the ability to deploy it using code.
 - Manual build was first documented in Notion with the ease of documentation for efficiency. 
-- The project name was initially Athena but due to collision, I have changed it to Trident, still a fitting name. 
+- The project name was initially named Athena but due to collision with the AWS service, I have changed it to Trident, still a fitting name. 
 - This was my first real project that I took time on, I will improve it as time goes and with more experience I get towards my journey in Cloud and Cybersecurity. 
 
 ## Costs 
--  This project was built/tested in A Cloud Guru’s AWS sandbox to avoid real-world charges.
+-  This project was built/tested in A Cloud Guru’s/Pluralsight AWS sandbox to avoid real-world charges.
 - There are cost considerations when this architecture gets deployed in a real AWS account. 
 - I recommend checking [AWS Pricing Calculator](https://calculator.aws/#/) to estimate total costs. 
 
