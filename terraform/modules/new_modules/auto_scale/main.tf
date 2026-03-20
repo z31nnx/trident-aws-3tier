@@ -33,3 +33,21 @@ resource "aws_autoscaling_group" "asg" {
     propagate_at_launch = true
   }
 }
+
+resource "aws_autoscaling_policy" "target_policy" {
+  for_each = var.target_policy
+
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  name                   = "${var.prefix}-${var.asg_name}-${each.key}-asg"
+  policy_type            = each.value.policy_type
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = each.value.predefined_metric_type
+    }
+
+    target_value = each.value.target_value
+  }
+
+  depends_on = [aws_autoscaling_group.asg]
+}

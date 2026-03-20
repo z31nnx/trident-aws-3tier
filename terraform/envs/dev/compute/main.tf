@@ -28,7 +28,7 @@ module "web_lt" {
   instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
   capacity_reservation_preference      = var.capacity_reservation_preference
   metadata_options                     = var.metadata_options
-  user_data                            = filebase64("../../../../userdata_scripts/web_userdata.sh")
+  user_data                            = filebase64("./userdata/web_userdata.sh")
   prefix                               = local.prefix
 }
 
@@ -106,7 +106,15 @@ module "web_asg" {
   capacity_distribution_strategy = "balanced-best-effort"
   min_healthy_percentage         = 90
   max_healthy_percentage         = 120
-  prefix                         = local.prefix
+
+  target_policy = {
+    cpu-target-policy = {
+      policy_type            = "TargetTrackingScaling"
+      predefined_metric_type = "ASGAverageCPUUtilization"
+      target_value           = 70.0
+    }
+  }
+  prefix = local.prefix
 }
 
 module "app_alb" {
@@ -163,5 +171,13 @@ module "app_asg" {
   capacity_distribution_strategy = "balanced-best-effort"
   min_healthy_percentage         = 90
   max_healthy_percentage         = 120
-  prefix                         = local.prefix
+
+  target_policy = {
+    cpu-target-policy = {
+      policy_type            = "TargetTrackingScaling"
+      predefined_metric_type = "ASGAverageCPUUtilization"
+      target_value           = 70.0
+    }
+  }
+  prefix = local.prefix
 }

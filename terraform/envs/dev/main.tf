@@ -88,3 +88,4 @@ module "rds_stack" {
   db_password          = var.db_password
   name_prefix          = local.name_prefix
 }
+

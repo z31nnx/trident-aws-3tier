@@ -47,3 +47,11 @@ variable "min_healthy_percentage" {
 variable "max_healthy_percentage" {
   type = number
 }
+
+variable "target_policy" {
+  type = map(object({
+    policy_type            = string
+    predefined_metric_type = string
+    target_value           = number
+  }))
+}
