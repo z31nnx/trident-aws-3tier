@@ -13,33 +13,43 @@ data "terraform_remote_state" "security" {
 }
 
 module "web_lt" {
-  source                  = "../../../modules/new_modules/launch_template"
-  lt_name                 = "web-asg-lt"
-  instance_type           = var.instance_type
-  instance_profile        = data.terraform_remote_state.security.outputs.ssm_role_profile
-  device_name             = var.device_name
-  vpc_security_group_ids  = [data.terraform_remote_state.security.outputs.sg_id["web_sg"]]
-  root_volume             = var.root_volume
-  disable_api_stop        = false
-  disable_api_termination = false
-  metadata_options        = var.metadata_options
-  user_data               = filebase64("./userdata/web_userdata.sh")
-  prefix                  = local.prefix
+  source                               = "../../../modules/new_modules/launch_template"
+  lt_name                              = "web-asg-lt"
+  ami_id                               = var.ami_id
+  instance_type                        = var.instance_type
+  instance_profile                     = data.terraform_remote_state.security.outputs.ssm_role_profile
+  device_name                          = var.device_name
+  vpc_security_group_ids               = [data.terraform_remote_state.security.outputs.sg_id["web_sg"]]
+  root_volume                          = var.root_volume
+  disable_api_stop                     = false
+  disable_api_termination              = false
+  monitoring                           = var.monitoring
+  cpu_credits                          = var.cpu_credits
+  instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
+  capacity_reservation_preference      = var.capacity_reservation_preference
+  metadata_options                     = var.metadata_options
+  user_data                            = filebase64("./userdata/web_userdata.sh")
+  prefix                               = local.prefix
 }
 
 module "app_lt" {
-  source                  = "../../../modules/new_modules/launch_template"
-  lt_name                 = "app-asg-lt"
-  instance_type           = var.instance_type
-  instance_profile        = data.terraform_remote_state.security.outputs.ssm_role_profile
-  device_name             = var.device_name
-  vpc_security_group_ids  = [data.terraform_remote_state.security.outputs.sg_id["app_sg"]]
-  root_volume             = var.root_volume
-  disable_api_stop        = false
-  disable_api_termination = false
-  metadata_options        = var.metadata_options
-  user_data               = filebase64("./userdata/app_userdata.sh")
-  prefix                  = local.prefix
+  source                               = "../../../modules/new_modules/launch_template"
+  lt_name                              = "app-asg-lt"
+  ami_id                               = var.ami_id
+  instance_type                        = var.instance_type
+  instance_profile                     = data.terraform_remote_state.security.outputs.ssm_role_profile
+  device_name                          = var.device_name
+  vpc_security_group_ids               = [data.terraform_remote_state.security.outputs.sg_id["app_sg"]]
+  root_volume                          = var.root_volume
+  disable_api_stop                     = false
+  disable_api_termination              = false
+  monitoring                           = var.monitoring
+  cpu_credits                          = var.cpu_credits
+  instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
+  capacity_reservation_preference      = var.capacity_reservation_preference
+  metadata_options                     = var.metadata_options
+  user_data                            = filebase64("./userdata/app_userdata.sh")
+  prefix                               = local.prefix
 }
 
 module "web_alb" {
@@ -96,7 +106,15 @@ module "web_asg" {
   capacity_distribution_strategy = "balanced-best-effort"
   min_healthy_percentage         = 90
   max_healthy_percentage         = 120
-  prefix                         = local.prefix
+
+  target_policy = {
+    cpu-target-policy = {
+      policy_type            = "TargetTrackingScaling"
+      predefined_metric_type = "ASGAverageCPUUtilization"
+      target_value           = 70.0
+    }
+  }
+  prefix = local.prefix
 }
 
 module "app_alb" {
@@ -153,5 +171,13 @@ module "app_asg" {
   capacity_distribution_strategy = "balanced-best-effort"
   min_healthy_percentage         = 90
   max_healthy_percentage         = 120
-  prefix                         = local.prefix
+
+  target_policy = {
+    cpu-target-policy = {
+      policy_type            = "TargetTrackingScaling"
+      predefined_metric_type = "ASGAverageCPUUtilization"
+      target_value           = 70.0
+    }
+  }
+  prefix = local.prefix
 }

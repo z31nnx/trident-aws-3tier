@@ -1,7 +1,7 @@
 #!/bin/bash
 #Update OS and install Apache
-yum update -y
-yum install -y httpd
+dnf update -y
+dnf install -y httpd
 
 # Enable and start the service
 systemctl enable httpd

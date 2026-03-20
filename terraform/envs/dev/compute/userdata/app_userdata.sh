@@ -1,16 +1,16 @@
 #!/bin/bash
 # Update system
-yum update -y
+dnf update -y
 
 # Install Apache
-yum install -y httpd
+dnf install -y httpd
 
 # Start and enable Apache
 systemctl start httpd
 systemctl enable httpd
 
-# Install MySQL client
-yum install -y mysql
+# Install MySQL/MariaDB client
+dnf install mariadb105 
 
 # Create demo app page (simulate application logic)
 mkdir -p /var/www/html/app

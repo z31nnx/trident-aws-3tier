@@ -1,12 +1,13 @@
 resource "aws_autoscaling_group" "asg" {
-  name                = "${var.prefix}-${var.asg_name}-asg"
-  max_size            = var.max_size
-  min_size            = var.min_size
-  desired_capacity    = var.desired_capacity
-  health_check_type   = var.health_check_type
-  force_delete        = var.force_delete
-  vpc_zone_identifier = var.vpc_zone_identifier
-  target_group_arns   = var.target_group_arns
+  name                      = "${var.prefix}-${var.asg_name}-asg"
+  max_size                  = var.max_size
+  min_size                  = var.min_size
+  desired_capacity          = var.desired_capacity
+  health_check_type         = var.health_check_type
+  health_check_grace_period = var.health_check_grace_period
+  force_delete              = var.force_delete
+  vpc_zone_identifier       = var.vpc_zone_identifier
+  target_group_arns         = var.target_group_arns
 
   launch_template {
     id      = var.launch_template
@@ -31,4 +32,22 @@ resource "aws_autoscaling_group" "asg" {
     value               = "${var.prefix}-${var.asg_name}-asg"
     propagate_at_launch = true
   }
+}
+
+resource "aws_autoscaling_policy" "target_policy" {
+  for_each = var.target_policy
+
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  name                   = "${var.prefix}-${var.asg_name}-${each.key}-asg"
+  policy_type            = each.value.policy_type
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = each.value.predefined_metric_type
+    }
+
+    target_value = each.value.target_value
+  }
+
+  depends_on = [aws_autoscaling_group.asg]
 }

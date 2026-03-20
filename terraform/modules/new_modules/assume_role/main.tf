@@ -5,7 +5,11 @@ data "aws_iam_policy_document" "trust" {
 
     principals {
       type        = "Service"
-      identifiers = toset(var.trusted_services)
+      identifiers = var.trusted_services != null ? var.trusted_services : []
+    }
+    principals {
+      type        = "AWS"
+      identifiers = var.trusted_arns != null ? var.trusted_arns : []
     }
   }
 }

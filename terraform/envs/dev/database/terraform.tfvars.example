@@ -1,0 +1,9 @@
+region      = "us-east-1"
+environment = "dev"
+project     = "trident"
+owner       = "your_user"
+managedby   = "terraform"
+
+db_username = "admin"
+db_password = "your_password"
+

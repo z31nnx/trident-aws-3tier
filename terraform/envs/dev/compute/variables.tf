@@ -18,20 +18,9 @@ variable "ami_id" {
   type    = string
   default = "al2023-ami-2023.*-x86_64"
 }
-variable "lt_name" {
-  type = string
-}
 variable "instance_type" {
   type    = string
   default = "t3.micro"
-}
-variable "user_data" {
-  type    = string
-  default = null
-}
-variable "instance_profile" {
-  type    = string
-  default = null
 }
 variable "device_name" {
   type    = string
@@ -53,25 +42,9 @@ variable "cpu_credits" {
   type    = string
   default = "standard"
 }
-variable "disable_api_stop" {
-  type    = bool
-  default = true
-}
-variable "disable_api_termination" {
-  type    = bool
-  default = true
-}
-variable "ebs_optimized" {
-  type    = bool
-  default = true
-}
 variable "instance_initiated_shutdown_behavior" {
   type    = string
   default = "terminate"
-}
-variable "key_name" {
-  type    = string
-  default = null
 }
 variable "metadata_options" {
   type = map(object({

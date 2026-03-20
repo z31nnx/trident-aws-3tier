@@ -22,7 +22,7 @@ data "aws_ami" "al2023" {
 }
 
 resource "aws_launch_template" "lt" {
-  name = var.lt_name
+  name = "${var.prefix}-${var.lt_name}"
 
   block_device_mappings {
     device_name = var.device_name

@@ -25,3 +25,4 @@ variable "trident_web_alb_sg_id" {
 variable "trident_app_alb_sg_id" {
   type = string
 }
+

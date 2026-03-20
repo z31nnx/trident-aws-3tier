@@ -10,6 +10,7 @@ module "ssm_role" {
   role_name            = var.role_name
   max_session_duration = var.max_session_duration
   trusted_services     = var.trusted_services
+  trusted_arns         = var.trusted_arns
   policy_arns          = var.policy_arns
   prefix               = local.prefix
 }
@@ -79,14 +80,7 @@ module "app_sg" {
       referenced_security_group_id = module.app_alb_sg.sg_id
     }
   }
-  egress = {
-    "mysql-to-db" = {
-      from_port                    = 3306
-      to_port                      = 3306
-      ip_protocol                  = "tcp"
-      referenced_security_group_id = module.database_sg.sg_id
-    }
-  }
+  egress = local.egress
   prefix = local.prefix
 }
 
