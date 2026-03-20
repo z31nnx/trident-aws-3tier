@@ -1,12 +1,13 @@
 resource "aws_autoscaling_group" "asg" {
-  name                = "${var.prefix}-${var.asg_name}-asg"
-  max_size            = var.max_size
-  min_size            = var.min_size
-  desired_capacity    = var.desired_capacity
-  health_check_type   = var.health_check_type
-  force_delete        = var.force_delete
-  vpc_zone_identifier = var.vpc_zone_identifier
-  target_group_arns   = var.target_group_arns
+  name                      = "${var.prefix}-${var.asg_name}-asg"
+  max_size                  = var.max_size
+  min_size                  = var.min_size
+  desired_capacity          = var.desired_capacity
+  health_check_type         = var.health_check_type
+  health_check_grace_period = var.health_check_grace_period
+  force_delete              = var.force_delete
+  vpc_zone_identifier       = var.vpc_zone_identifier
+  target_group_arns         = var.target_group_arns
 
   launch_template {
     id      = var.launch_template

@@ -10,6 +10,7 @@ module "ssm_role" {
   role_name            = var.role_name
   max_session_duration = var.max_session_duration
   trusted_services     = var.trusted_services
+  trusted_arns         = var.trusted_arns
   policy_arns          = var.policy_arns
   prefix               = local.prefix
 }

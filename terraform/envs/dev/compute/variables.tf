@@ -18,9 +18,6 @@ variable "ami_id" {
   type    = string
   default = "al2023-ami-2023.*-x86_64"
 }
-variable "lt_name" {
-  type = string
-}
 variable "instance_type" {
   type    = string
   default = "t3.micro"
