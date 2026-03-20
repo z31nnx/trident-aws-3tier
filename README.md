@@ -2,43 +2,70 @@
 [![Terraform CI](https://github.com/z31nnx/trident-aws-3tier/actions/workflows/terraform.yml/badge.svg)](https://github.com/z31nnx/trident-aws-3tier/actions/workflows/terraform.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Trident is a resilient, highly available, and secure AWS 3-tier architecture deployed manually and with **Terraform** (IaC). 
+Trident is a resilient, highly available, and secure AWS 3-tier architecture implemented both manually and with **Terraform** as Infrastructure as Code (IaC).
 
 > **Renaming Notice — Sep 2025**
 >
-> This project was previously named **Athena**. It was renamed to **Trident** to avoid **service/resource naming collisions** (e.g., security groups, ALBs, ASGs, RDS identifiers).  
-> Any screenshots or tags that still show `athena-*` refer to the same project prior to the rename.
+> This project was previously named **Athena**. It was renamed to **Trident** to avoid service and resource naming collisions with AWS-related identifiers.
+> Any screenshots, tags, or legacy references that still show `athena-*` refer to the same project prior to the rename.
 
-# Overview 
-This project demonstrates the deployment of a modern 3-tier architecture using both manual steps and Infrastructure as Code (IaC). It incorporates core AWS services to ensure scalability, availability, and security. 
+## Overview
 
-![Trident-3-Tier-Architecture-Diagram](/diagram/trident-3-Tier-Diagram.png) 
+This project demonstrates the deployment of a modern AWS 3-tier architecture using both manual implementation and Infrastructure as Code.
 
-# Builds
+It is designed to showcase core cloud engineering concepts including scalability, availability, layered networking, secure access patterns, and modular infrastructure design.
+
+The repository contains:
+
+- a **manual build** documenting the service-by-service setup
+- a **Terraform build** that refactors the architecture into reusable modules and stack-based deployment
+
+![Trident-3-Tier-Architecture-Diagram](/diagram/trident-3-Tier-Diagram.png)
+
+## Builds
+
 - **Manual build:** **[Click Here](/manual_build/README.MD)**
 - **Terraform build:** **[Click Here](/terraform/README.MD)**
 
-# Key Features
-- VPC with Public & Private Subnets 
-- Security Groups for network segmentation 
-- EC2 with SSM (session manager) for secure portless access 
-- Autoscaling Group (ASG) for dynamic scalability 
-- Application Load Balancer (ALB) for traffic distribution 
-- NAT Gateway (NAT) and Internet Gateway (IGW) for Internet Access
-- IAM Role for EC2 aligning with best practices 
-- RDS database for data storage 
+## Key Features
 
-## Notes  
-- This project demonstrates both practical infrastructure understanding and the ability to deploy it using code.
-- Manual build was first documented in Notion with the ease of documentation for efficiency. 
-- The project name was initially named Athena but due to collision with the AWS service, I have changed it to Trident, still a fitting name. 
-- This was my first real project that I took time on, I will improve it as time goes and with more experience I get towards my journey in Cloud and Cybersecurity. 
+- VPC with public and private subnets
+- Security groups for network segmentation
+- EC2 with SSM Session Manager for secure portless access
+- Auto Scaling Groups for dynamic scalability
+- Application Load Balancers for traffic distribution
+- NAT Gateway and Internet Gateway for controlled connectivity
+- IAM roles and instance profiles aligned with least-privilege practices
+- RDS for the database tier
+- Terraform-based modular deployment using separate infrastructure stacks
 
-## Costs 
--  This project was built/tested in A Cloud Guru’s/Pluralsight AWS sandbox to avoid real-world charges.
-- There are cost considerations when this architecture gets deployed in a real AWS account. 
-- I recommend checking [AWS Pricing Calculator](https://calculator.aws/#/) to estimate total costs. 
+## Terraform Build Highlights
+
+The Terraform implementation has been refactored from an earlier 2025 version to better reflect cleaner infrastructure practices and improved project structure.
+
+Highlights include:
+
+- stack-based organization across **networking**, **security**, **compute**, and **database**
+- reusable Terraform modules
+- local stack data flow using Terraform outputs
+- Amazon Linux 2023-based compute instances
+- sandbox-friendly local state for demonstration environments
+
+For full Terraform-specific documentation, see **[terraform/README.MD](/terraform/README.MD)**.
+
+## Notes
+
+- This project demonstrates both practical infrastructure understanding and the ability to automate the same environment using Terraform
+- The manual build was first documented in Notion for speed and ease of documentation, then brought into the repository
+- The project was originally named **Athena** and later renamed to **Trident**
+- This was one of my earliest major cloud projects and has since been revisited and refactored as my Terraform and AWS skills improved
+
+## Costs
+
+- This project was built and tested in A Cloud Guru / Pluralsight AWS sandbox environments to avoid real-world charges
+- Deploying this architecture in a personal or production AWS account will incur costs
+- Use the [AWS Pricing Calculator](https://calculator.aws/#/) to estimate expected charges before deployment
 
 ## License
-This project is licensed under the [MIT License](./LICENSE).
 
+This project is licensed under the [MIT License](./LICENSE).
