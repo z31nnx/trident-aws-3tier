@@ -80,14 +80,7 @@ module "app_sg" {
       referenced_security_group_id = module.app_alb_sg.sg_id
     }
   }
-  egress = {
-    "mysql-to-db" = {
-      from_port                    = 3306
-      to_port                      = 3306
-      ip_protocol                  = "tcp"
-      referenced_security_group_id = module.database_sg.sg_id
-    }
-  }
+  egress = local.egress
   prefix = local.prefix
 }
 
