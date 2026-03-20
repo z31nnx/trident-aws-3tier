@@ -176,7 +176,7 @@ The architecture needs a solid private and isolated foundation before it can run
 - You will be prompted to enter a password, enter the password you chose when we created the database.
 ![Data_step_11](./screenshots/Data_step_11.png)
 - Additionally you could use this command to see your database: 
-- ```show database;```
+- ```show databases;```
 - We’ve successfully connected to the database from our App Tier instance.
 
 # Conclusion
