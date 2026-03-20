@@ -21,7 +21,7 @@ provider "aws" {
 }
 
 module "vpc_stack" {
-  source          = "../../modules/vpc_stack"
+  source          = "../../../modules/legacy_modules/vpc_stack"
   vpc_name        = var.vpc_name
   cidr_block      = var.cidr_block
   public_subnets  = var.public_subnets
@@ -30,20 +30,20 @@ module "vpc_stack" {
 }
 
 module "security_groups" {
-  source      = "../../modules/security_groups"
+  source      = "../../../modules/legacy_modules/security_groups"
   vpc_id      = module.vpc_stack.vpc_id
   name_prefix = local.name_prefix
 }
 
 module "iam_stack" {
-  source                    = "../../modules/iam_stack"
+  source                    = "../../../modules/legacy_modules/iam_stack"
   iam_instance_profile_name = var.iam_instance_profile_name
   iam_role_name             = var.iam_role_name
   name_prefix               = local.name_prefix
 }
 
 module "launch_template" {
-  source                    = "../../modules/launch_template"
+  source                    = "../../../modules/legacy_modules/launch_template"
   trident_web_sg_id         = module.security_groups.trident_web_sg_id
   trident_app_sg_id         = module.security_groups.trident_app_sg_id
   ec2_instance_profile_name = module.iam_stack.ec2_instance_profile_name
@@ -54,7 +54,7 @@ module "launch_template" {
 }
 
 module "alb_stack" {
-  source                = "../../modules/alb_stack"
+  source                = "../../../modules/legacy_modules/alb_stack"
   vpc_id                = module.vpc_stack.vpc_id
   alb_public_subnets    = module.vpc_stack.public_subnets_id
   alb_private_subnets   = module.vpc_stack.private_subnets_id_per_az
@@ -64,7 +64,7 @@ module "alb_stack" {
 }
 
 module "asg_stack" {
-  source              = "../../modules/asg_stack"
+  source              = "../../../modules/legacy_modules/asg_stack"
   web_launch_template = module.launch_template.launch_template_names["web"]
   app_launch_template = module.launch_template.launch_template_names["app"]
   asg_public_subnets  = module.vpc_stack.public_subnets_id
@@ -79,7 +79,7 @@ module "asg_stack" {
 }
 
 module "rds_stack" {
-  source               = "../../modules/rds_stack"
+  source               = "../../../modules/legacy_modules/rds_stack"
   db_private_subnets   = module.vpc_stack.private_subnets_id_per_az
   trident_db_sg_id     = module.security_groups.trident_data_sg_id
   db_subnet_group_name = var.db_subnet_group_name
