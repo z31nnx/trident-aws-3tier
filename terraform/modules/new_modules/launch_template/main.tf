@@ -43,21 +43,19 @@ resource "aws_launch_template" "lt" {
     cpu_credits = var.cpu_credits
   }
 
-  disable_api_stop        = var.disable_api_stop
-  disable_api_termination = var.disable_api_termination
-
-  ebs_optimized = var.ebs_optimized
-
   iam_instance_profile {
     name = var.instance_profile
   }
 
+  disable_api_stop                     = var.disable_api_stop
+  disable_api_termination              = var.disable_api_termination
   image_id                             = data.aws_ami.al2023.image_id
-  instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
   instance_type                        = var.instance_type
   key_name                             = var.key_name
+  ebs_optimized                        = var.ebs_optimized
   vpc_security_group_ids               = var.vpc_security_group_ids
   user_data                            = var.user_data
+  instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
 
   monitoring {
     enabled = var.monitoring
