@@ -4,8 +4,13 @@ variable "prefix" {
 variable "role_name" {
   type = string
 }
+variable "trusted_services" {
+  type    = list(string)
+  default = null
+}
 variable "trusted_arns" {
-  type = list(string)
+  type    = list(string)
+  default = null
 }
 variable "policy_arns" {
   type = list(string)

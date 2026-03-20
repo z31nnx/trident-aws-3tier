@@ -1,0 +1,13 @@
+region      = "us-east-1"
+environment = "dev"
+project     = "trident"
+owner       = "your_name"
+managedby   = "terraform"
+
+role_name            = "ssm-ops-role"
+max_session_duration = 3600
+trusted_services     = ["ec2.amazonaws.com"]
+policy_arns = [
+  "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+  "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+]

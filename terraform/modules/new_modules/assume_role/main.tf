@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "trust" {
 
     principals {
       type        = "Service"
-      identifiers = toset(var.trusted_arns)
+      identifiers = toset(var.trusted_services)
     }
   }
 }
@@ -18,6 +18,11 @@ resource "aws_iam_role" "role" {
   tags = {
     Name = "${var.prefix}-${var.role_name}-role"
   }
+}
+
+resource "aws_iam_instance_profile" "instance_profile" {
+  name = "${var.role_name}-profile"
+  role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role_policy_attachment" "policy_attachment" {
