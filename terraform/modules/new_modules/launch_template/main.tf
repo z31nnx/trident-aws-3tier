@@ -52,13 +52,12 @@ resource "aws_launch_template" "lt" {
     name = var.instance_profile
   }
 
-  image_id = data.aws_ami.al2023.image_id
-
+  image_id                             = data.aws_ami.al2023.image_id
   instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
-
-  instance_type = var.instance_type
-
-  key_name = var.key_name
+  instance_type                        = var.instance_type
+  key_name                             = var.key_name
+  vpc_security_group_ids               = var.vpc_security_group_ids
+  user_data                            = var.user_data
 
   monitoring {
     enabled = var.monitoring
@@ -74,4 +73,5 @@ resource "aws_launch_template" "lt" {
     }
   }
 }
+
 
