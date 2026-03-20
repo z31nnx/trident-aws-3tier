@@ -28,7 +28,7 @@ module "web_lt" {
   instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
   capacity_reservation_preference      = var.capacity_reservation_preference
   metadata_options                     = var.metadata_options
-  user_data                            = filebase64("./userdata/web_userdata.sh")
+  user_data                            = filebase64("../../../../userdata_scripts/web_userdata.sh")
   prefix                               = local.prefix
 }
 
