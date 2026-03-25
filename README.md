@@ -1,6 +1,10 @@
 # Trident AWS 3-Tier Infra
 [![Terraform CI](https://github.com/z31nnx/trident-aws-3tier/actions/workflows/terraform.yml/badge.svg)](https://github.com/z31nnx/trident-aws-3tier/actions/workflows/terraform.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Cloud: AWS](https://img.shields.io/badge/Cloud-AWS-orange.svg)](#)
+[![IaC: Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC.svg)](#)
+[![Architecture: 3-Tier](https://img.shields.io/badge/Architecture-3--Tier-blue.svg)](#)
+[![Status: Maintained](https://img.shields.io/badge/Status-Maintained-blue.svg)](#)
 
 Trident is a resilient, highly available, and secure AWS 3-tier architecture implemented both manually and with **Terraform** as Infrastructure as Code (IaC).
 
